@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-import javax.management.RuntimeErrorException;
-public interface Set<T> {
-    void remove(T elem);
-    void add(T elem);
+
+interface Set<T> {
+    void push(T elem);
     T access(int index);
-    void display();
+    void delete(T elem);
+    int size();
     
 }
 
@@ -14,12 +14,7 @@ class MySet<T> implements Set<T> {
     private ArrayList<T> arr= new ArrayList<>();
 
     private boolean isEmpty(){
-        if (arr.size()==0){
-            throw new RuntimeErrorException("Set is empty");
-        }
-        else{
-            return false;
-        }
+        return arr.isEmpty();
     }
 
     private boolean in(T elem){
@@ -30,28 +25,27 @@ class MySet<T> implements Set<T> {
         }
         return false;
     }
-    public T delete(T elem){
+    @Override
+    public void delete(T elem){
         if (!isEmpty()){
+            arr.remove(elem);
+            
+        }
         
-            T elemt=arr.remove(elem);
-            return elemt;
-        }
     }
-
+    @Override
     public void push(T elem){
-        if (in(elem)){
-            //nothing
-        }
-
-        else{
+        if (!in(elem)){
             arr.add(elem);
         }
-    }
 
+        
+    }
+    @Override
     public T access(int index){
         return arr.get(index);
     }
-
+    @Override
     public int size(){
         return arr.size();
     }
@@ -59,7 +53,7 @@ class MySet<T> implements Set<T> {
 
 }
 
-public class Main implements Set{
+public class SetADT {
     public static void main(String args[]){
         MySet<Integer> set= new MySet<Integer>();
         set.push(1);
