@@ -1,4 +1,4 @@
-import java.util.Arrays;
+
 
 
 
@@ -21,15 +21,19 @@ class MyList<T> implements List<T>{
         data=(T[]) new Object[capacity];
         size=0;
     }
+    @Override
     public int size(){
         return size;
     }
-
+    @Override
     public void push(T elem){
+        if (size==capacity){
+            throw new IllegalStateException("Array Full");
+        }
         data[size]=elem;
         size++;
     }
-
+    @Override
     public boolean pop(){
         if (isEmpty()){
             return false;
@@ -40,14 +44,14 @@ class MyList<T> implements List<T>{
         
         return true;
     }
-
+    @Override
     public boolean isEmpty(){
-        if (data.length==0){
+        if (size==0){
             return true;
         }
         return false;
     }
-
+    @Override
     public T access(int index){
         if (isEmpty()){
             throw new IllegalStateException("No elements in array");
